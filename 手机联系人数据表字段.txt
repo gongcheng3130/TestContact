@@ -1,0 +1,54 @@
+_id mimetype
+
+1 vnd.android.cursor.item/email_v2
+
+2 vnd.android.cursor.item/im
+
+3 vnd.android.cursor.item/postal-address_v2
+
+4 vnd.android.cursor.item/photo
+
+5 vnd.android.cursor.item/phone_v2
+
+6 vnd.android.cursor.item/name
+
+7 vnd.android.cursor.item/organization
+
+8 vnd.android.cursor.item/nickname
+
+9 vnd.android.cursor.item/group_membership
+
+10 vnd.android.cursor.item/note
+
+11 vnd.android.cursor.item/website
+
+12 vnd.android.cursor.item/relation
+
+13 vnd.android.cursor.item/contact_event
+
+1为邮箱；2聊天账号；3住址；4图片；5电话号码；6姓名；7公司+职位；8昵称；9所属组；10备注；11网址
+
+
+display_name  姓名  这个没啥问题
+mimetype = vnd.android.cursor.item/phone_v2   data1 保存号码  data2 保存号码类型  如果有两个手机号码
+相当于data表中有两行数据，这两行data2类型相同（不过无法区分先后或者1，2） 根据data2 类型能区分号码类型（如手机、住宅电话、公司电话等）
+mimetype = vnd.android.cursor.item/email_v2   邮箱，概念同上 
+mimetype = vnd.android.cursor.item/postal-address_v2   地址  概念同上
+
+contacts表也就是联系人表的URI —— scontent://com.android.contacts/contact ，对应类静态常量为ContactsContract.Contacts.CONTENT_URI
+联系人电话URI —— content://com.android.contacts/data/phones ，对应静态常量为ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+联系人邮箱URI —— content://com.android.contacts/data/emails  ，对应静态常量为ContactsContract.CommonDataKinds.Email.CONTENT_URI
+联系人地址URI —— content://com.android.contacts/data/postals  ，对应静态常量为ContactsContract.CommonDataKinds.StructuredPostall.CONTENT_URI
+所有联系人的Uri —— content://contacts/people
+某个联系人x的Ur —— content://contacts/people/x
+data表URI —— content://com.android.contacts/data ，对应静态常量为ContactsContract.Data.CONTENT_URI
+
+通过  content://com.android.contacts/contacts ，你就可以查找contacts表
+
+其中比较重要的字段有：
+
+_id-->联系人的ID
+
+通过  content://com.android.contacts/data 你就可以查询data表
+
+http://www.360doc.com/content/13/0708/12/12890102_298446854.shtml  查找相关字段信息
