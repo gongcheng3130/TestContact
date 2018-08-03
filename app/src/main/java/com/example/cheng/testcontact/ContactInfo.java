@@ -19,9 +19,10 @@ public class ContactInfo {
 	public String EmailCompany;//公司邮箱
 	public String EmailMobile;//手机邮箱
 	public String AddressHome;//住宅地址
-    public String AddressCompany;//公司地址
+	public String AddressCompany;//公司地址
 	public String AddressOther;//住宅地址
-	public String WebHome;//
+	public String WebHome;//个人主页
+	public String WebWork;//工作主页
 	public String CreateTime;//联系人创建时间
 	public String UpdateTime;//联系人最后修改时间
 	public String SortKey;//排序关键字
@@ -47,6 +48,8 @@ public class ContactInfo {
 				", AddressHome='" + AddressHome + '\'' +
 				", AddressCompany='" + AddressCompany + '\'' +
 				", AddressOther='" + AddressOther + '\'' +
+				", WebHome='" + WebHome + '\'' +
+				", WebWork='" + WebWork + '\'' +
 				", CreateTime='" + CreateTime + '\'' +
 				", UpdateTime='" + UpdateTime + '\'' +
 				", SortKey='" + SortKey + '\'' +

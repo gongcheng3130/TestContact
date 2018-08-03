@@ -215,23 +215,27 @@ public class DataUtils {
 							}
 						}
 
-						// 获取网站信息
-						if (ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE.equals(mimeType)) {
-							int webType = aa.getInt(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.TYPE));// 取出网站类型
-							if (aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL) != -1) {
-								if (webType == ContactsContract.CommonDataKinds.Website.TYPE_CUSTOM) {// 主页
-									String home = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
-								}else if (webType == ContactsContract.CommonDataKinds.Website.TYPE_HOME) {// 主页
-									String home = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
-								}
-								if (webType == ContactsContract.CommonDataKinds.Website.TYPE_HOMEPAGE) {// 个人主页
-									String homePage = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
-								}
-								if (webType == ContactsContract.CommonDataKinds.Website.TYPE_WORK) {// 工作主页
-									String work = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
-								}
-							}
-						}
+                        // 获取网站信息
+                        if (ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE.equals(mimeType)) {
+                            int webType = aa.getInt(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.TYPE));// 取出网站类型
+                            if (aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL) != -1) {
+                                if (webType == ContactsContract.CommonDataKinds.Website.TYPE_CUSTOM) {// 主页
+                                    String home = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
+                                    contacts.WebHome = home;
+                                }else if (webType == ContactsContract.CommonDataKinds.Website.TYPE_HOME) {// 主页
+                                    String home = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
+                                    contacts.WebHome = home;
+                                }
+                                if (webType == ContactsContract.CommonDataKinds.Website.TYPE_HOMEPAGE) {// 个人主页
+                                    String homePage = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
+                                    if(TextUtils.isEmpty(contacts.WebHome)) contacts.WebHome = homePage;
+                                }
+                                if (webType == ContactsContract.CommonDataKinds.Website.TYPE_WORK) {// 工作主页
+                                    String work = aa.getString(aa.getColumnIndex(ContactsContract.CommonDataKinds.Website.URL));
+                                    contacts.WebWork = work;
+                                }
+                            }
+                        }
 
 						// 查找通讯地址
 						if (StructuredPostal.CONTENT_ITEM_TYPE.equals(mimeType)) { // 取出通讯地址
