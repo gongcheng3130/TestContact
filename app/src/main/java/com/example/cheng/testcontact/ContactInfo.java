@@ -1,8 +1,11 @@
 package com.example.cheng.testcontact;
 
+import android.graphics.Bitmap;
+
 public class ContactInfo {
 
 	public String VCardData;//电子名片数据字符串，一般用不到
+	public Bitmap UserHead;//用户头像
 	public String UserName;//联系人名称
 	public String UserNamePY;//联系人名称拼音
 	public String NickName;//联系人昵称

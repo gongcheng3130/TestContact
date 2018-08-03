@@ -12,6 +12,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
@@ -25,8 +27,10 @@ import android.text.TextUtils;
 public class DataUtils {
 
 	private ContentResolver cr;
+	private Context context;
 
 	public DataUtils(Context context) {
+		this.context = context;
 		cr = context.getContentResolver();
 	}
 
@@ -44,6 +48,10 @@ public class DataUtils {
 					contacts = new ContactInfo();
 					//获取联系人ID
 					int id = cs.getInt(cs.getColumnIndex(Phone._ID));
+
+					//获取联系人头像
+					Bitmap contactPhoto = getContactPhoto(id);
+					contacts.UserHead = contactPhoto;
 					//获取联系人创建时间
 					if(cs.getColumnIndex(Phone.CONTACT_PRESENCE)!=-1){
 						contacts.CreateTime = cs.getString(cs.getColumnIndex(Phone.CONTACT_PRESENCE));
@@ -435,6 +443,25 @@ public class DataUtils {
 		// JDKz自带对数组进行排序。
 		Arrays.sort(strs, cmp);
 		return strs;
+	}
+
+	//获取手机联系人头像
+	private Bitmap getContactPhoto(int contactId) {
+		Bitmap photo = null;
+		Cursor dataCursor = cr.query(ContactsContract.Data.CONTENT_URI
+				, new String[]{ContactsContract.Data.DATA15},
+				ContactsContract.Data.CONTACT_ID + "=?" + " AND " + ContactsContract.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'"
+				, new String[]{String.valueOf(contactId)}
+				, null);
+		if (dataCursor != null) {
+			if (dataCursor.getCount() > 0) {
+				dataCursor.moveToFirst();
+				byte[] bytes = dataCursor.getBlob(dataCursor.getColumnIndex("data15"));
+				if (bytes != null) photo = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+			}
+			dataCursor.close();
+		}
+		return photo;
 	}
 
 }
